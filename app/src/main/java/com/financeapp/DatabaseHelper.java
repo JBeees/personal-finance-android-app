@@ -74,6 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + TABLE_SETTINGS + " VALUES ('available_balance', '0')");
         db.execSQL("INSERT INTO " + TABLE_SETTINGS + " VALUES ('savings_balance', '0')");
         db.execSQL("INSERT INTO " + TABLE_SETTINGS + " VALUES ('pin', '')");
+        db.execSQL("INSERT INTO " + TABLE_SETTINGS + " VALUES ('balance_visible', '0')");
     }
 
     @Override
@@ -101,8 +102,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void setSetting(String key, String value) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
+        cv.put(COL_KEY, key);
         cv.put(COL_VALUE, value);
-        db.update(TABLE_SETTINGS, cv, COL_KEY + "=?", new String[]{key});
+        db.replace(TABLE_SETTINGS, null, cv);
     }
 
     public double getAvailableBalance() {
@@ -132,6 +134,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean hasPin() {
         String pin = getPin();
         return pin != null && !pin.isEmpty();
+    }
+
+    public boolean isBalanceVisible() {
+        return "1".equals(getSetting("balance_visible"));
+    }
+
+    public void setBalanceVisible(boolean visible) {
+        setSetting("balance_visible", visible ? "1" : "0");
     }
 
     // =====================

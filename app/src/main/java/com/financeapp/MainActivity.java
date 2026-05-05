@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         db = DatabaseHelper.getInstance(this);
+        isBalanceVisible = false; // Always hidden on app launch
 
         // One-time cleanup for previous income transactions as requested
         // db.clearAllIncomeTransactions(); // Disabled so it doesn't clear every time
@@ -97,10 +98,10 @@ public class MainActivity extends AppCompatActivity {
         double available = db.getAvailableBalance();
         if (isBalanceVisible) {
             tvAvailableBalance.setText(FormatUtils.formatRupiah(available));
-            btnToggleVisibility.setImageResource(R.drawable.ic_visibility);
+            btnToggleVisibility.setImageResource(R.drawable.ic_visibility_off);
         } else {
             tvAvailableBalance.setText("••••••••");
-            btnToggleVisibility.setImageResource(R.drawable.ic_visibility_off);
+            btnToggleVisibility.setImageResource(R.drawable.ic_visibility);
         }
         tvSavingsBalance.setText("••••••••");
 
