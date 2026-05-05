@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_card"
+    android:padding="24dp"
+    android:layout_margin="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CATAT PENGELUARAN"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        android:letterSpacing="0.2"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Amount -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOMINAL"
+        android:textColor="@color/text_hint"
+        android:textSize="9sp"
+        android:letterSpacing="0.15"
+        android:layout_marginBottom="6dp" />
+
+    <EditText
+        android:id="@+id/etAmount"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="0"
+        android:textColorHint="@color/text_hint"
+        android:textColor="@color/text_primary"
+        android:textSize="22sp"
+        android:fontFamily="sans-serif-light"
+        android:inputType="numberDecimal"
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="16dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Category -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KATEGORI"
+        android:textColor="@color/text_hint"
+        android:textSize="9sp"
+        android:letterSpacing="0.15"
+        android:layout_marginBottom="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/catFood"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Makan 🍴"
+                android:textColor="@color/text_primary"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:background="@drawable/bg_action_button"
+                android:layout_marginEnd="4dp"
+                android:alpha="0.4"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/catTransport"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Transport 🚗"
+                android:textColor="@color/text_primary"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:background="@drawable/bg_action_button"
+                android:layout_marginHorizontal="2dp"
+                android:alpha="0.4"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/catEntertainment"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Hiburan 🎮"
+                android:textColor="@color/text_primary"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:background="@drawable/bg_action_button"
+                android:layout_marginStart="4dp"
+                android:alpha="0.4"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/catBills"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Tagihan 📄"
+                android:textColor="@color/text_primary"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:background="@drawable/bg_action_button"
+                android:layout_marginEnd="4dp"
+                android:alpha="0.4"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/catShopping"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Belanja 🛍️"
+                android:textColor="@color/text_primary"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:background="@drawable/bg_action_button"
+                android:layout_marginHorizontal="2dp"
+                android:alpha="0.4"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/catOther"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Lainnya 📦"
+                android:textColor="@color/text_primary"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:background="@drawable/bg_action_button"
+                android:layout_marginStart="4dp"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Note -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CATATAN"
+        android:textColor="@color/text_hint"
+        android:textSize="9sp"
+        android:letterSpacing="0.15"
+        android:layout_marginBottom="6dp" />
+
+    <EditText
+        android:id="@+id/etNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Opsional"
+        android:textColorHint="@color/text_hint"
+        android:textColor="@color/text_primary"
+        android:textSize="14sp"
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="24dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Batal"
+            android:textColor="@color/text_hint"
+            android:textSize="13sp"
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Simpan"
+            android:textColor="@color/text_primary"
+            android:textSize="13sp"
+            android:padding="12dp"
+            android:layout_marginStart="8dp"
+            android:clickable="true"
+            android:focusable="true" />
+    </LinearLayout>
+
+</LinearLayout>

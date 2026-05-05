@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vault</string>
+    <string name="total_savings">Total Tabungan</string>
+    <string name="available_balance">Saldo Tersedia</string>
+    <string name="add_to_savings">Tambah Tabungan</string>
+    <string name="daily_expense">Catat Pengeluaran</string>
+    <string name="add_balance">Tambah Saldo</string>
+    <string name="summary">Ringkasan</string>
+    <string name="weekly">Mingguan</string>
+    <string name="monthly">Bulanan</string>
+    <string name="yearly">Tahunan</string>
+    <string name="enter_pin">Masukkan PIN</string>
+    <string name="setup_pin">Buat PIN Baru</string>
+    <string name="confirm_pin">Konfirmasi PIN</string>
+    <string name="pin_mismatch">PIN tidak cocok, coba lagi</string>
+    <string name="pin_wrong">PIN salah</string>
+    <string name="amount_hint">Masukkan nominal</string>
+    <string name="note_hint">Catatan (opsional)</string>
+    <string name="save">Simpan</string>
+    <string name="cancel">Batal</string>
+    <string name="category_food">Makanan</string>
+    <string name="category_transport">Transport</string>
+    <string name="category_entertainment">Hiburan</string>
+    <string name="category_other">Lainnya</string>
+    <string name="total_expense">Total Pengeluaran</string>
+    <string name="today">Hari Ini</string>
+    <string name="transactions">Transaksi</string>
+    <string name="no_transactions">Belum ada transaksi</string>
+    <string name="savings_locked">Tabungan terkunci dengan PIN</string>
+    <string name="unlock_savings">Buka Tabungan</string>
+    <string name="income">Pemasukan</string>
+    <string name="expense">Pengeluaran</string>
+</resources>

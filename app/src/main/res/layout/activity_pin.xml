@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_primary"
+    android:fitsSystemWindows="true">
+
+    <!-- Back Button -->
+    <TextView
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="‹"
+        android:textColor="@color/text_secondary"
+        android:textSize="28sp"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MASUKKAN PIN"
+        android:textColor="@color/text_primary"
+        android:textSize="13sp"
+        android:letterSpacing="0.25"
+        android:fontFamily="sans-serif-light"
+        app:layout_constraintBottom_toTopOf="@+id/llPinDots"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35" />
+
+    <!-- Subtitle -->
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="untuk mengakses tabungan"
+        android:textColor="@color/text_hint"
+        android:textSize="11sp"
+        android:letterSpacing="0.05"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <!-- Error message -->
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="#EF9A9A"
+        android:textSize="11sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtitle" />
+
+    <!-- PIN Dots -->
+    <LinearLayout
+        android:id="@+id/llPinDots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/gridKeypad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvError"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <View android:id="@+id/dot1" android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_marginHorizontal="10dp" android:background="@drawable/pin_dot_inactive" />
+        <View android:id="@+id/dot2" android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_marginHorizontal="10dp" android:background="@drawable/pin_dot_inactive" />
+        <View android:id="@+id/dot3" android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_marginHorizontal="10dp" android:background="@drawable/pin_dot_inactive" />
+        <View android:id="@+id/dot4" android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_marginHorizontal="10dp" android:background="@drawable/pin_dot_inactive" />
+        <View android:id="@+id/dot5" android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_marginHorizontal="10dp" android:background="@drawable/pin_dot_inactive" />
+        <View android:id="@+id/dot6" android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_marginHorizontal="10dp" android:background="@drawable/pin_dot_inactive" />
+    </LinearLayout>
+
+    <!-- Keypad -->
+    <GridLayout
+        android:id="@+id/gridKeypad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="48dp"
+        android:columnCount="3"
+        android:rowCount="4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llPinDots">
+
+        <!-- Row 1: 1 2 3 -->
+        <TextView android:id="@+id/key1" android:layout_width="72dp" android:layout_height="72dp"
+            android:text="1" android:textColor="@color/text_primary" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:gravity="center"
+            android:layout_margin="8dp" android:background="@drawable/bg_keypad_button"
+            android:clickable="true" android:focusable="true" />
+        <TextView android:id="@+id/key2" android:layout_width="72dp" android:layout_height="72dp"
+            android:text="2" android:textColor="@color/text_primary" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:gravity="center"
+            android:layout_margin="8dp" android:background="@drawable/bg_keypad_button"
+            android:clickable="true" android:focusable="true" />
+        <TextView android:id="@+id/key3" android:layout_width="72dp" android:layout_height="72dp"
+            android:text="3" android:textColor="@color/text_primary" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:gravity="center"
+            android:layout_margin="8dp" android:background="@drawable/bg_keypad_button"
+            android:clickable="true" android:focusable="true" />
+
+        <!-- Row 2: 4 5 6 -->
+        <TextView android:id="@+id/key4" android:layout_width="72dp" android:layout_height="72dp"
+            android:text="4" android:textColor="@color/text_primary" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:gravity="center"
+            android:layout_margin="8dp" android:background="@drawable/bg_keypad_button"
+            android:clickable="true" android:focusable="true" />
+        <TextView android:id="@+id/key5" android:layout_width="72dp" android:layout_height="72dp"
+            android:text="5" android:textColor="@color/text_primary" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:gravity="center"
+            android:layout_margin="8dp" android:background="@drawable/bg_keypad_button"
+            android:clickable="true" android:focusable="true" />
+        <TextView android:id="@+id/key6" android:layout_width="72dp" android:layout_height="72dp"
+            android:text="6" android:textColor="@color/text_primary" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:gravity="center"
+            android:layout_margin="8dp" android:background="@drawable/bg_keypad_button"
+            android:clickable="true" android:focusable="true" />
+
+        <!-- Row 3: 7 8 9 -->
+        <TextView android:id="@+id/key7" android:layout_width="72dp" android:layout_height="72dp"
+            android:text="7" android:textColor="@color/text_primary" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:gravity="center"
+            android:layout_margin="8dp" android:background="@drawable/bg_keypad_button"
+            android:clickable="true" android:focusable="true" />
+        <TextView android:id="@+id/key8" android:layout_width="72dp" android:layout_height="72dp"
+            android:text="8" android:textColor="@color/text_primary" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:gravity="center"
+            android:layout_margin="8dp" android:background="@drawable/bg_keypad_button"
+            android:clickable="true" android:focusable="true" />
+        <TextView android:id="@+id/key9" android:layout_width="72dp" android:layout_height="72dp"
+            android:text="9" android:textColor="@color/text_primary" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:gravity="center"
+            android:layout_margin="8dp" android:background="@drawable/bg_keypad_button"
+            android:clickable="true" android:focusable="true" />
+
+        <!-- Row 4: empty 0 backspace -->
+        <View android:layout_width="72dp" android:layout_height="72dp" android:layout_margin="8dp" />
+        <TextView android:id="@+id/key0" android:layout_width="72dp" android:layout_height="72dp"
+            android:text="0" android:textColor="@color/text_primary" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:gravity="center"
+            android:layout_margin="8dp" android:background="@drawable/bg_keypad_button"
+            android:clickable="true" android:focusable="true" />
+        <TextView android:id="@+id/keyDel" android:layout_width="72dp" android:layout_height="72dp"
+            android:text="⌫" android:textColor="@color/text_secondary" android:textSize="20sp"
+            android:gravity="center" android:layout_margin="8dp"
+            android:clickable="true" android:focusable="true" />
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

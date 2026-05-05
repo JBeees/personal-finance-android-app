@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- App palette - Monochrome Luxury -->
+    <color name="bg_primary">#0A0A0A</color>
+    <color name="bg_secondary">#111111</color>
+    <color name="bg_card">#1A1A1A</color>
+    <color name="bg_elevated">#242424</color>
+
+    <color name="text_primary">#F5F5F5</color>
+    <color name="text_secondary">#9E9E9E</color>
+    <color name="text_hint">#616161</color>
+
+    <color name="accent_white">#FFFFFF</color>
+    <color name="accent_gray">#757575</color>
+    <color name="accent_light">#E0E0E0</color>
+
+    <color name="positive">#A5D6A7</color>
+    <color name="negative">#EF9A9A</color>
+    <color name="neutral">#B0BEC5</color>
+
+    <color name="divider">#2C2C2C</color>
+    <color name="surface_stroke">#303030</color>
+    <color name="pin_dot_active">#F5F5F5</color>
+    <color name="pin_dot_inactive">#333333</color>
+    <color name="ripple">#33FFFFFF</color>
+</resources>
