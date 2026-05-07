@@ -12,12 +12,13 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "vault.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
 
     // Tables
     static final String TABLE_TRANSACTIONS = "transactions";
     static final String TABLE_SAVINGS = "savings";
     static final String TABLE_SETTINGS = "settings";
+    static final String TABLE_DEBTS = "debts";
 
     // Transaction columns
     static final String COL_ID = "id";
@@ -31,6 +32,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Settings columns
     static final String COL_KEY = "key";
     static final String COL_VALUE = "value";
+
+    // Debt columns
+    static final String COL_CREDITOR = "creditor";
+    static final String COL_DESCRIPTION = "description";
+    static final String COL_IS_PAID = "is_paid";
 
     private static DatabaseHelper instance;
 
@@ -70,19 +76,91 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL_VALUE + " TEXT" +
                 ")");
 
+        db.execSQL("CREATE TABLE " + TABLE_DEBTS + " (" +
+                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_CREDITOR + " TEXT NOT NULL, " +
+                COL_AMOUNT + " REAL NOT NULL, " +
+                COL_DESCRIPTION + " TEXT, " +
+                COL_TIMESTAMP + " INTEGER NOT NULL, " +
+                COL_DATE + " TEXT NOT NULL, " +
+                COL_IS_PAID + " INTEGER DEFAULT 0" +
+                ")");
+
         // Default settings
         db.execSQL("INSERT INTO " + TABLE_SETTINGS + " VALUES ('available_balance', '0')");
         db.execSQL("INSERT INTO " + TABLE_SETTINGS + " VALUES ('savings_balance', '0')");
         db.execSQL("INSERT INTO " + TABLE_SETTINGS + " VALUES ('pin', '')");
         db.execSQL("INSERT INTO " + TABLE_SETTINGS + " VALUES ('balance_visible', '0')");
+
+        seedHistoricalData(db);
+    }
+
+    public void seedHistoricalData(SQLiteDatabase db) {
+        // Check if data already exists to avoid duplicates
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_TRANSACTIONS + " WHERE " + COL_DATE + " IN ('2026-05-04', '2026-05-05', '2026-05-06')", null);
+        if (cursor.moveToFirst() && cursor.getInt(0) > 0) {
+            cursor.close();
+            return;
+        }
+        cursor.close();
+
+        Object[][] data = {
+                {"2026-05-06", 4000.0, "Lainnya", "other"},
+                {"2026-05-06", 12000.0, "Sarapan", "food"},
+                {"2026-05-06", 14000.0, "makan siang", "food"},
+                {"2026-05-06", 14000.0, "makan + minum", "food"},
+                {"2026-05-05", 14000.0, "Makan siang", "food"},
+                {"2026-05-05", 14000.0, "Makan + minum", "food"},
+                {"2026-05-04", 5500.0, "gojek", "transport"},
+                {"2026-05-04", 12000.0, "Makan siang", "food"},
+                {"2026-05-04", 14000.0, "Makan + minum", "food"}
+        };
+
+        for (Object[] row : data) {
+            ContentValues cv = new ContentValues();
+            cv.put(COL_TYPE, "expense");
+            cv.put(COL_DATE, (String) row[0]);
+            cv.put(COL_AMOUNT, (Double) row[1]);
+            cv.put(COL_NOTE, (String) row[2]);
+            cv.put(COL_CATEGORY, (String) row[3]);
+            cv.put(COL_TIMESTAMP, System.currentTimeMillis());
+            db.insert(TABLE_TRANSACTIONS, null, cv);
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTIONS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SAVINGS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETTINGS);
-        onCreate(db);
+        if (oldVersion < 2) {
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTIONS);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_SAVINGS);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETTINGS);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_DEBTS);
+            onCreate(db);
+        } else if (oldVersion == 2) {
+            // Version 2 to 3: Add debts table or add missing columns
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_DEBTS + " (" +
+                    COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COL_CREDITOR + " TEXT NOT NULL, " +
+                    COL_AMOUNT + " REAL NOT NULL, " +
+                    COL_DESCRIPTION + " TEXT, " +
+                    COL_TIMESTAMP + " INTEGER NOT NULL, " +
+                    COL_DATE + " TEXT NOT NULL, " +
+                    COL_IS_PAID + " INTEGER DEFAULT 0" +
+                    ")");
+
+            // Check if creditor exists, if not add it (in case it was created partially before)
+            try {
+                db.execSQL("ALTER TABLE " + TABLE_DEBTS + " ADD COLUMN " + COL_CREDITOR + " TEXT NOT NULL DEFAULT ''");
+            } catch (Exception ignored) {}
+            try {
+                db.execSQL("ALTER TABLE " + TABLE_DEBTS + " ADD COLUMN " + COL_IS_PAID + " INTEGER DEFAULT 0");
+            } catch (Exception ignored) {}
+        }
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onUpgrade(db, oldVersion, newVersion);
     }
 
     // =====================

@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         db = DatabaseHelper.getInstance(this);
+        db.seedHistoricalData(db.getWritableDatabase());
         isBalanceVisible = false; // Always hidden on app launch
 
         // One-time cleanup for previous income transactions as requested
@@ -87,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Savings Card (PIN protected)
         findViewById(R.id.cardSavings).setOnClickListener(v -> openSavingsWithPin());
+        findViewById(R.id.btnDebt).setOnClickListener(v -> {
+            startActivity(new Intent(this, DebtActivity.class));
+        });
     }
 
     private void refreshUI() {

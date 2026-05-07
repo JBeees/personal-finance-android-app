@@ -284,6 +284,17 @@ public class SummaryActivity extends AppCompatActivity {
 
             TextView tvNote = new TextView(this);
             String note = (t.note != null && !t.note.isEmpty()) ? t.note : getCategoryName(t.category);
+            
+            // If it's a debt repayment, format as "Name : Description"
+            if (note != null && note.startsWith("Pelunasan: ")) {
+                String creditor = note.replace("Pelunasan: ", "");
+                // We don't have the original debt description here directly from transaction
+                // but we can show it as "Creditor : Pelunasan" or similar if we want
+                // However, the user asked for "Nama : Deskripsi" format for transaction detail
+                // In DebtActivity.java we used "Pelunasan: " + debt.creditorName
+                note = creditor + " : Pelunasan";
+            }
+
             tvNote.setText(note);
             tvNote.setTextColor(getColor(R.color.text_primary));
             tvNote.setTextSize(13f);

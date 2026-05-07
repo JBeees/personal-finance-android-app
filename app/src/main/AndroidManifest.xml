@@ -37,6 +37,9 @@
         <activity
             android:name=".SetupPinActivity"
             android:exported="false" />
+        <activity
+            android:name=".DebtActivity"
+            android:exported="false" />
 
     </application>
 

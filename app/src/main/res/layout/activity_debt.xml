@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_primary"
+    android:fitsSystemWindows="true">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="‹"
+            android:textColor="@color/text_secondary"
+            android:textSize="28sp"
+            android:paddingEnd="16dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="DAFTAR HUTANG"
+            android:textColor="@color/text_primary"
+            android:textSize="12sp"
+            android:letterSpacing="0.25"
+            android:fontFamily="sans-serif-light" />
+
+        <TextView
+            android:id="@+id/btnAddDebt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+ Tambah"
+            android:textColor="@color/negative"
+            android:textSize="12sp"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
+    <!-- Total Debt Summary -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOTAL HUTANG AKTIF"
+            android:textColor="@color/text_hint"
+            android:textSize="10sp"
+            android:letterSpacing="0.2"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:id="@+id/tvTotalDebt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp 0"
+            android:textColor="@color/negative"
+            android:textSize="32sp"
+            android:fontFamily="sans-serif-light"
+            android:letterSpacing="-0.02" />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/surface_stroke" />
+    </LinearLayout>
+
+    <!-- List -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SEMUA HUTANG"
+        android:textColor="@color/text_hint"
+        android:textSize="10sp"
+        android:letterSpacing="0.2"
+        android:paddingHorizontal="24dp"
+        android:layout_marginBottom="8dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDebts"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="24dp"
+        android:paddingBottom="24dp"
+        android:clipToPadding="false" />
+
+    <TextView
+        android:id="@+id/tvNoDebts"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Tidak ada hutang aktif"
+        android:textColor="@color/text_hint"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:visibility="gone" />
+
+</LinearLayout>

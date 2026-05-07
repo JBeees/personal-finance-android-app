@@ -115,7 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="3"
+                    android:weightSum="4"
                     android:layout_marginTop="4dp">
 
                     <!-- Add Balance -->
@@ -203,6 +203,36 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Ringkasan"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            android:letterSpacing="0.05" />
+                    </LinearLayout>
+
+                    <!-- Debt -->
+                    <LinearLayout
+                        android:id="@+id/btnDebt"
+                        android:layout_width="0dp"
+                        android:layout_height="72dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        android:background="@drawable/bg_action_button"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="◌"
+                            android:textColor="@color/negative"
+                            android:textSize="22sp"
+                            android:fontFamily="sans-serif-light" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Loan"
                             android:textColor="@color/text_secondary"
                             android:textSize="10sp"
                             android:letterSpacing="0.05" />
