@@ -269,7 +269,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.query(TABLE_TRANSACTIONS, null,
                 COL_DATE + " >= ? AND " + COL_DATE + " <= ?",
                 new String[]{startDate, endDate},
-                null, null, COL_TIMESTAMP + " ASC");
+                null, null, COL_DATE + " DESC, " + COL_TIMESTAMP + " DESC");
         return cursorToTransactions(c);
     }
 
