@@ -79,10 +79,13 @@ public class FormatUtils {
         return sdf.format(new Date());
     }
 
-    // Week start/end (Mon-Sun)
-    public static String[] getWeekRange() {
+    // Week start/end (Mon-Sun) with offset
+    public static String[] getWeekRange(int weekOffset) {
         java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.setFirstDayOfWeek(java.util.Calendar.MONDAY);
         cal.set(java.util.Calendar.DAY_OF_WEEK, java.util.Calendar.MONDAY);
+        cal.add(java.util.Calendar.WEEK_OF_YEAR, weekOffset);
+        
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String start = sdf.format(cal.getTime());
         cal.add(java.util.Calendar.DAY_OF_WEEK, 6);
@@ -90,10 +93,16 @@ public class FormatUtils {
         return new String[]{start, end};
     }
 
-    // Month start/end
-    public static String[] getMonthRange() {
+    public static String[] getWeekRange() {
+        return getWeekRange(0);
+    }
+
+    // Month start/end with offset
+    public static String[] getMonthRange(int monthOffset) {
         java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.add(java.util.Calendar.MONTH, monthOffset);
         cal.set(java.util.Calendar.DAY_OF_MONTH, 1);
+        
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String start = sdf.format(cal.getTime());
         cal.set(java.util.Calendar.DAY_OF_MONTH, cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH));
@@ -101,10 +110,18 @@ public class FormatUtils {
         return new String[]{start, end};
     }
 
-    // Year start/end
-    public static String[] getYearRange() {
+    public static String[] getMonthRange() {
+        return getMonthRange(0);
+    }
+
+    // Year start/end with offset
+    public static String[] getYearRange(int yearOffset) {
         java.util.Calendar cal = java.util.Calendar.getInstance();
-        int year = cal.get(java.util.Calendar.YEAR);
+        int year = cal.get(java.util.Calendar.YEAR) + yearOffset;
         return new String[]{year + "-01-01", year + "-12-31"};
+    }
+
+    public static String[] getYearRange() {
+        return getYearRange(0);
     }
 }

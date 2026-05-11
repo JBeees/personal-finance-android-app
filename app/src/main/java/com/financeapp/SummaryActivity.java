@@ -2,7 +2,9 @@ package com.financeapp;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -34,6 +36,9 @@ public class SummaryActivity extends AppCompatActivity {
     private View indWeekly, indMonthly, indYearly;
 
     private final String[] periods = {"weekly", "monthly", "yearly"};
+    private int weekOffset = 0;
+    private int monthOffset = 0;
+    private int yearOffset = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +67,15 @@ public class SummaryActivity extends AppCompatActivity {
     private void setupViewPager() {
         SummaryPagerAdapter adapter = new SummaryPagerAdapter();
         viewPager.setAdapter(adapter);
+        viewPager.setUserInputEnabled(true); // Re-enable main swipe to allow navigation between tabs
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
+                // Reset offsets when switching between Weekly/Monthly/Yearly
+                weekOffset = 0;
+                monthOffset = 0;
+                yearOffset = 0;
                 setActiveTab(periods[position]);
             }
         });
@@ -96,7 +106,14 @@ public class SummaryActivity extends AppCompatActivity {
         barChart.setDrawBorders(false);
         barChart.getDescription().setEnabled(false);
         barChart.getLegend().setEnabled(false);
-        barChart.setTouchEnabled(false);
+        
+        // Disable internal interactions to allow parent swipe detection
+        barChart.setTouchEnabled(true);
+        barChart.setDragEnabled(false);
+        barChart.setScaleEnabled(false);
+        barChart.setPinchZoom(false);
+        barChart.setDoubleTapToZoomEnabled(false);
+
         barChart.setBackgroundColor(Color.TRANSPARENT);
         barChart.setNoDataText("Tidak ada data");
         barChart.setNoDataTextColor(Color.parseColor("#616161"));
@@ -122,22 +139,27 @@ public class SummaryActivity extends AppCompatActivity {
     private void loadDataForViewHolder(SummaryViewHolder holder, String period) {
         String[] range;
         int avgDivisor;
+        String rangeText;
 
         switch (period) {
             case "monthly":
-                range = FormatUtils.getMonthRange();
+                range = FormatUtils.getMonthRange(monthOffset);
                 avgDivisor = 30;
+                rangeText = formatRangeText(range, "month", monthOffset);
                 break;
             case "yearly":
-                range = FormatUtils.getYearRange();
+                range = FormatUtils.getYearRange(yearOffset);
                 avgDivisor = 365;
+                rangeText = formatRangeText(range, "year", yearOffset);
                 break;
             default: // weekly
-                range = FormatUtils.getWeekRange();
+                range = FormatUtils.getWeekRange(weekOffset);
                 avgDivisor = 7;
+                rangeText = formatRangeText(range, "week", weekOffset);
                 break;
         }
 
+        holder.tvDateRange.setText(rangeText);
         String startDate = range[0];
         String endDate = range[1];
 
@@ -161,6 +183,26 @@ public class SummaryActivity extends AppCompatActivity {
 
         boolean hasData = totalExpense > 0;
         holder.tvNoData.setVisibility(hasData ? View.GONE : View.VISIBLE);
+    }
+
+    private String formatRangeText(String[] range, String type, int offset) {
+        if (offset == 0) {
+            if ("week".equals(type)) return "Minggu Ini";
+            if ("month".equals(type)) return "Bulan Ini";
+            if ("year".equals(type)) return "Tahun Ini";
+        }
+        
+        if ("week".equals(type)) {
+            return FormatUtils.formatDate(range[0]) + " - " + FormatUtils.formatDate(range[1]);
+        } else if ("month".equals(type)) {
+            try {
+                java.text.SimpleDateFormat in = new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
+                java.text.SimpleDateFormat out = new java.text.SimpleDateFormat("MMMM yyyy", new java.util.Locale("id"));
+                return out.format(in.parse(range[0]));
+            } catch (Exception e) { return range[0]; }
+        } else {
+            return range[0].substring(0, 4);
+        }
     }
 
     private void updateChart(BarChart barChart, List<DatabaseHelper.DailyTotal> dailyTotals) {
@@ -355,7 +397,8 @@ public class SummaryActivity extends AppCompatActivity {
     }
 
     private class SummaryViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTotalExpense, tvAvgExpense, tvNoData;
+        TextView tvTotalExpense, tvAvgExpense, tvNoData, tvDateRange;
+        View btnPrev, btnNext;
         BarChart barChart;
         LinearLayout llCategories, llTransactions;
 
@@ -367,7 +410,29 @@ public class SummaryActivity extends AppCompatActivity {
             llCategories = itemView.findViewById(R.id.llCategories);
             llTransactions = itemView.findViewById(R.id.llTransactions);
             tvNoData = itemView.findViewById(R.id.tvNoData);
+            tvDateRange = itemView.findViewById(R.id.tvDateRange);
+            btnPrev = itemView.findViewById(R.id.btnPrevRange);
+            btnNext = itemView.findViewById(R.id.btnNextRange);
+
             setupChart(barChart);
+            setupNavigation();
+        }
+
+        private void setupNavigation() {
+            btnPrev.setOnClickListener(v -> changeOffset(-1));
+            btnNext.setOnClickListener(v -> changeOffset(1));
+        }
+
+        private void changeOffset(int delta) {
+            int pos = getAdapterPosition();
+            if (pos == RecyclerView.NO_POSITION) return;
+            
+            String period = periods[pos];
+            if ("monthly".equals(period)) monthOffset += delta;
+            else if ("yearly".equals(period)) yearOffset += delta;
+            else weekOffset += delta;
+
+            loadDataForViewHolder(this, period);
         }
     }
 }

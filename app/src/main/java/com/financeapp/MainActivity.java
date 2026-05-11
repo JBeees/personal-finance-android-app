@@ -29,13 +29,20 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvNoTransactions;
     private ImageView btnToggleVisibility;
     private boolean isBalanceVisible = false;
+    private String pinAction = "";
 
     private final ActivityResultLauncher<Intent> pinLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
-                    showAddBalanceDialogActual();
+                    if ("toggle_balance".equals(pinAction)) {
+                        isBalanceVisible = true;
+                        refreshUI();
+                    } else {
+                        showAddBalanceDialogActual();
+                    }
                 }
+                pinAction = "";
             }
     );
 
@@ -75,8 +82,15 @@ public class MainActivity extends AppCompatActivity {
     private void setupClickListeners() {
         // Visibility Toggle
         btnToggleVisibility.setOnClickListener(v -> {
-            isBalanceVisible = !isBalanceVisible;
-            refreshUI();
+            if (!isBalanceVisible && db.hasPin()) {
+                pinAction = "toggle_balance";
+                Intent intent = new Intent(this, PinActivity.class);
+                intent.putExtra("mode", "action_verify");
+                pinLauncher.launch(intent);
+            } else {
+                isBalanceVisible = !isBalanceVisible;
+                refreshUI();
+            }
         });
 
         // Available Balance Actions
@@ -229,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
         if (!db.hasPin()) {
             showAddBalanceDialogActual();
         } else {
+            pinAction = "add_balance";
             Intent intent = new Intent(this, PinActivity.class);
             intent.putExtra("mode", "action_verify");
             pinLauncher.launch(intent);
